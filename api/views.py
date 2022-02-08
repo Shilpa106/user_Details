@@ -1,4 +1,3 @@
-from django.shortcuts import render
 
 # Create your views here.
 from . models import Person
@@ -9,12 +8,18 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
+
+# from rest_framework 
+
 class PersonApiView(APIView):
     def get(self, request, *args, **kwargs):
 
-        """
-        get list of persons
-        """
+        '''
+        :Process: Show the list of persons
+        :method: `GET`
+        :HTTPRequest:
+        :Response: `List of Json Array`
+        '''
 
         userdetail = Person.objects.all()
         serializer = PersonSerializers(userdetail, many=True)
@@ -32,9 +37,18 @@ class PersonApiView(APIView):
 
     def post(self, request, *args, **kwargs):
 
-        """
-        create api for User Details
-        """
+        '''
+        :Process: Post a Person 
+        :method: `POST`
+        :HTTPRequest:
+
+        ** Context **
+        
+        :firstName:          `string`
+        :lastName:           `string`
+        :email:              `string`
+        :Response: `Posted Data in Json`
+        '''
 
         if Person.objects.filter(email=request.data.get("email")).exists():
             return Response({"description": "Email Already Taken"},status=status.HTTP_409_CONFLICT)
@@ -57,12 +71,20 @@ class PersonApiView(APIView):
 
 
 
-class PersonView(APIView):
+class PersonDetailView(APIView):
     def get(self, request, *args, **kwargs):
 
-        """
-        get Person by id
-        """
+        '''
+        :Process: Person details
+        :method: `GET`
+        :HTTPRequest:
+       
+
+        ** Context **
+        :param: `id`
+
+        :Response: `Retrieve List of Json Array Data by ID, And Status Code According method`
+        '''
 
        
         id = self.kwargs.get("pk")       
@@ -84,10 +106,17 @@ class PersonView(APIView):
 
     
     def put(self, request, *args, **kwargs):
+        
+        '''
+        :Process: Person details
+        :method: `PUT`
+        :HTTPRequest:
 
-        """
-        update User Details
-        """
+        ** Context **
+        :param: `id`
+
+        :Response: `Retrieve List of Json Array Data by ID, And Status Code According method`
+        '''
 
         id = self.kwargs.get("pk")
         try:
@@ -110,9 +139,16 @@ class PersonView(APIView):
     def delete(self, request, *args, **kwargs):
 
 
-        """
-        delete User Details
-        """
+        '''
+        :Process: Person details
+        :method: `DELETE`
+        :HTTPRequest:
+
+        ** Context **
+        :param: `id`
+
+        :Response: `Retrieve Data by ID, And Status Code According method`
+        '''
 
         id = self.kwargs.get("pk")
         try:

@@ -4,13 +4,13 @@ from . models import Person
 
 class PersonSerializers(serializers.ModelSerializer):
 
-    """
-    Serializer for Person
-    """
+    '''
+    :Serializer: Serializer fields for Person to serialize and deserialize json data
+    '''
 
     class Meta:
         model = Person
-        fields = ("id","firstName", "lastName", "email")
+        fields = ("id","first_name", "last_name", "email")
         
 
         
